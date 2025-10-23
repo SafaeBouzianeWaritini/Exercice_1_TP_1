@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QCM : Développement Web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #4a69ad;
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        
+    </style>
+ 
+</head>
+<body>
+
+    <h1>QCM : Développement Web</h1>
+
+    <form id="qcmForm">
+        
+        <!--Question 1-->
+        <div class="question">
+            <p>Q1: Quels langages sont utilisés pour le développement web ?</p>
+            <label><input type="checkbox" name="q1" value="a">HTML</label><br>
+            <label><input type="checkbox" name="q1" value="b">CSS</label><br>
+            <label><input type="checkbox" name="q1" value="c">Python</label><br>
+            <label><input type="checkbox" name="q1" value="d">JavaScript</label><br>
+        </div>
+
+        <!--Question 2-->
+        <div class="question">
+            <p>Q2: Le langage utilisé pour styliser une page web est :</p>
+            <label><input type="radio" name="q2" value="a">HTML</label><br>
+            <label><input type="radio" name="q2" value="b">CSS</label><br>
+            <label><input type="radio" name="q2" value="c">JavaScript</label><br>
+        </div>
+
+        <!--Question 3-->
+        <div class="question">
+            <p>Q3: Que peut-on faire avec JavaScript ?</p>
+            <label><input type="checkbox" name="q3" value="a">Créer des interactions avec l'utilisateur</label><br>
+            <label><input type="checkbox" name="q3" value="b">Modifier le contenu d'une page</label><br>
+            <label><input type="checkbox" name="q3" value="c">Définir la mise en page (style)</label><br>
+        </div>
+
+        <!--Question 4-->
+        <div class="question">
+            <p>Q4: Quels sont des élements HTML valides ?</p>
+            <label><input type="checkbox" name="q4" value="a">&lt;div&gt;</label><br>
+            <label><input type="checkbox" name="q4" value="b">&lt;head&gt;</label><br>
+            <label><input type="checkbox" name="q4" value="c">&lt;style&gt;</label><br>
+            <label><input type="checkbox" name="q4" value="d">&lt;random&gt;</label><br>
+        </div>
+
+        <!--Question 5-->
+        <div class="question">
+            <p>Q5: Lequel est un langage de programmation ?</p>
+            <label><input type="radio" name="q5" value="a">CSS</label><br>
+            <label><input type="radio" name="q5" value="b">HTML</label><br>
+            <label><input type="radio" name="q5" value="c">JavaScript</label><br>
+        </div>
+
+    </form>
+    
+    <!--Boutons-->
+    <button onclick="initQCM()">Initialiser</button>
+    <button onclick="corrigeQCM()">Corrigé</button>
+    <button onclick="resultatQCM()">Résultat</button>
+
+    <script>
+    // Réponses correctes :
+    const reponses = {
+      q1: ['a', 'b', 'd'],     // HTML, CSS, JavaScript
+      q2: 'b',                 // CSS
+      q3: ['a', 'b'],          // interactions + contenu
+      q4: ['a', 'b', 'c'],     // div, head, style
+      q5: 'c'                  // JavaScript
+    };
+
+    // Réinitialiser le QCM
+    function initQCM() {
+      document.getElementById("qcmForm").reset();
+      alert("Le QCM a été réinitialisé !");
+    }
+
+    // Afficher le corrigé
+    function corrigeQCM() {
+      window.open("corrige.html", "Corrigé", "width=500,height=400");
+      win.document.body.innerHTML = "";
+    }
+
+
+    // Calculer le résultat
+    function resultatQCM() {
+      let score = 0;
+      const form = document.forms["qcmForm"];
+
+      // Choix multiples
+      let q1 = Array.from(form.q1).filter(c => c.checked).map(c => c.value);
+      let q3 = Array.from(form.q3).filter(c => c.checked).map(c => c.value);
+      let q4 = Array.from(form.q4).filter(c => c.checked).map(c => c.value);
+      // Comparer avec les bonnes réponses
+      if (JSON.stringify(q1.sort()) === JSON.stringify(reponses.q1.sort())) score++;
+      if (form.q2.value === reponses.q2) score++;
+      if (JSON.stringify(q3.sort()) === JSON.stringify(reponses.q3.sort())) score++;
+      if (JSON.stringify(q4.sort()) === JSON.stringify(reponses.q4.sort())) score++;
+      if (form.q5.value === reponses.q5) score++;
+
+      // Ouvrir une nouvelle fenêtre avec le résultat
+      let win = window.open("", "Résultat", "width=400, height=300");
+      win.document.body.innerHTML = "";
+      win.document.write('<h2>Résultat du test</h2>');
+      win.document.write(`<p>Votre score : <b>${score}/5</b></p>`);
+      win.document.write(score >= 3 ? '<p style="color:green;">Bravo </p>' : '<p style="color:red;">Raté ! Continuez à vous entraîner </p>');
+    }
+    
+  </script>
+
+</body>
+</html>
